@@ -20,7 +20,7 @@ def get_data_file_name_from_zip(zip_path):
             all_files_in_zip = z.namelist()
 
             # Prioriza el archivo 'individual' sobre 'hogar'
-            keywords = ["individual"]
+            keywords = ["individual", "personas"]
 
             for keyword in keywords:
                 for filename in all_files_in_zip:
