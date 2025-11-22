@@ -129,15 +129,15 @@ def scrape_and_download(start_year=2016, end_year=2025):
 
         if found_link:
             # Construir la URL completa y la ruta de guardado
+            standardized_filename = f"EPH_T{trim}_{year}_txt.zip"
             full_url = urljoin(BASE_URL, found_link)
-            filename = os.path.basename(found_link)
-            filepath = os.path.join(TARGET_DIR, filename)
+            filepath = os.path.join(TARGET_DIR, standardized_filename)
 
             if not os.path.exists(filepath):
                 if download_file(full_url, filepath):
                     downloaded_count += 1
             else:
-                print(f"{filename} ya existe. Saltando descarga.")
+                print(f"{standardized_filename} ya existe. Saltando descarga.")
         else:
             print(
                 f"Advertencia: No se encontró el archivo TXT para el T{trim}/{year}.")
