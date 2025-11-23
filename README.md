@@ -9,3 +9,5 @@ Para inicializar el proyecto:
 4. activar el ambiente virtual ejecutando ```.venv\Scripts\activate``` en la consola de vscode
 5. instalar las librerias requeridas ejecutando ```pip install -r requirements.txt``` en la consola de vscode
 6. para correr el scraper y descargar los datos del indec ejectutar  ```python src/scraper.py``` en la consola de vscode
+7. una vez descargados los archivos .zip es importante extraerlos y sanitizarlos ejecutando ```python src/sanitize.py``` en la consola de vscode
+8. el archivo test.py permite comprobar la validez de los datos sanitizados
