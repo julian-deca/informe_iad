@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
@@ -5,6 +7,7 @@ import numpy as np
 from utils import load_sanitized_eph_data
 from evolucion_media import calcular_tasa_empleo_por_aglomerado
 from media_ingresos import deflacionar_ingresos
+import geopandas as gpd
 
 tasas = ['Tasa_Empleo', 'Tasa_Actividad', 'Tasa_Desocupacion']
 labels = ['Tasa de Empleo (TE)', 'Tasa de Actividad (TA)',
@@ -139,6 +142,30 @@ def graficar_media_ingreso_real(df_eph_deflacionado):
     plt.show()
 
 
+
+def graficar_mapa():
+    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+    gdf_eph = gpd.read_file("./data/radios_eph.geojson")
+    gdf_caba = gdf_eph[gdf_eph["eph_codagl"] == '32']
+    print(gdf_caba.head())
+    
+    gdf_caba.plot(
+       ax=ax, 
+        edgecolor='black', 
+        linewidth=0.5, 
+        facecolor='lightblue',
+        alpha=0.8
+    )
+
+    # Añadir etiquetas de interés (opcional)
+    ax.set_title(f'Cobertura EPH - {"CABA"}', fontsize=14)
+    ax.set_xlabel('Longitud')
+    ax.set_ylabel('Latitud')
+
+    # Mostrar el mapa
+    plt.show()
+
+
 def graficar():
     """Función principal para cargar datos y generar el gráfico de Tasa de Empleo."""
 
@@ -147,12 +174,15 @@ def graficar():
     if df_eph is None:
         return
 
+    graficar_mapa()
+
+    
     # Calcular la Tasa de Empleo por aglomerado
-    # df_tasa_empleo = calcular_tasa_empleo_por_aglomerado(None, df_eph)
-    df_eph_deflacionado = deflacionar_ingresos(df_eph)
+    #df_tasa_empleo = calcular_tasa_empleo_por_aglomerado(None, df_eph)
+    #df_eph_deflacionado = deflacionar_ingresos(df_eph)
     # Generar el gráfico
-    # graficar_tasa_empleo_serie(df_tasa_empleo)
-    graficar_media_ingreso_real(df_eph_deflacionado)
+    #graficar_tasa_empleo_serie(df_tasa_empleo)
+    #graficar_media_ingreso_real(df_eph_deflacionado)
 
 
 graficar()
